@@ -53,6 +53,7 @@ function App () {
       <form
         onSubmit={e => {
           e.preventDefault()
+          // @ts-ignore
           fetch(`http://localhost:5678/search/${e.target.username.value}`)
             .then(resp => resp.json())
             .then(searchedUsers => setSearchedUsers(searchedUsers))
