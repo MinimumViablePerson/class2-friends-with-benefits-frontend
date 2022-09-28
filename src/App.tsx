@@ -6,13 +6,15 @@ type User = {
   username: string
 }
 
+const baseUrl = 'https://shard-unruly-chanter.glitch.me'
+
 function App () {
   const [currentUser, setUser] = useState({ id: 1, username: 'Nicolas' })
   const [friends, setFriends] = useState<User[]>([])
   const [searchedUsers, setSearchedUsers] = useState<User[]>([])
 
   useEffect(() => {
-    fetch(`http://localhost:5678/my-friends/${currentUser.id}`)
+    fetch(`${baseUrl}/my-friends/${currentUser.id}`)
       .then(resp => resp.json())
       .then(friends => setFriends(friends))
   }, [currentUser.id])
@@ -27,7 +29,7 @@ function App () {
             {friend.username}{' '}
             <button
               onClick={() => {
-                fetch('http://localhost:5678/remove-friend', {
+                fetch(`${baseUrl}/remove-friend`, {
                   method: 'DELETE',
                   headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +39,7 @@ function App () {
                     theirId: friend.id
                   })
                 }).then(() => {
-                  fetch(`http://localhost:5678/my-friends/${currentUser.id}`)
+                  fetch(`${baseUrl}/my-friends/${currentUser.id}`)
                     .then(resp => resp.json())
                     .then(friends => setFriends(friends))
                 })
@@ -54,7 +56,7 @@ function App () {
         onSubmit={e => {
           e.preventDefault()
           // @ts-ignore
-          fetch(`http://localhost:5678/search/${e.target.username.value}`)
+          fetch(`${baseUrl}/search/${e.target.username.value}`)
             .then(resp => resp.json())
             .then(searchedUsers => setSearchedUsers(searchedUsers))
         }}
@@ -70,7 +72,7 @@ function App () {
             {user.username}
             <button
               onClick={() => {
-                fetch('http://localhost:5678/make-friend', {
+                fetch(`${baseUrl}/make-friend`, {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -80,7 +82,7 @@ function App () {
                     theirId: user.id
                   })
                 }).then(() => {
-                  fetch(`http://localhost:5678/my-friends/${currentUser.id}`)
+                  fetch(`${baseUrl}/my-friends/${currentUser.id}`)
                     .then(resp => resp.json())
                     .then(friends => setFriends(friends))
                 })
