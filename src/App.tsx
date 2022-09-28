@@ -21,7 +21,7 @@ function App () {
 
   return (
     <div className='App'>
-      <h1>Friends with Benefits</h1>
+      <h1>Friends with Benefits!!!!!</h1>
       <h2>Welcome back, {currentUser.username}!</h2>
       <ul>
         {friends.map(friend => (
